@@ -1,0 +1,16 @@
+{
+  "name": "Johnny5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "johnny-five": "^2.1.0",
+    "keypress": "^0.2.1"
+  }
+}
