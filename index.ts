@@ -1,8 +1,10 @@
 import express from 'express'
 import BoardController from './BoardController'
+import bodyParser from 'body-parser'
 
 const app = express()
 const board = new BoardController()
+app.use(bodyParser.json())
 
 // {x: angle, y: angle}
 app.post('/move', function (req, res) {
@@ -13,6 +15,7 @@ app.post('/move', function (req, res) {
   }
 
   board.moveToPosition(movePos);
+  res.send();
 })
 
 app.listen(3000)

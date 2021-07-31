@@ -25,7 +25,11 @@ export default class boardController {
   
   moveToPosition(pos: { x: number, y: number }) {
     if (!this.boardReady) return;
-    this.servoX.to(pos.x)
-    this.servoY.to(pos.y)
+
+    let servoXPos = [0, this.servoX.position + pos.x, 180].sort()[1];
+    let servoYPos = [0, this.servoY.position + pos.y, 180].sort()[1];
+
+    this.servoX.to(servoXPos);
+    this.servoY.to(servoYPos);
   }
 }
