@@ -1,55 +1,31 @@
-import { Board, Stepper } from "johnny-five";
+import { Board } from "johnny-five";
+import { EscController } from "./components/EscController";
+import StepperController from "./components/StepperController";
+import { vector2 } from "./utils/helperClasses";
 
 export default class BoardController {
   board = new Board();
   isReady = false;
+  stepperController: StepperController;
+  // brushlessController: BrushlessController;
+  escController: EscController;
 
   constructor() {
-        
+    this.initialize();
   }
 
-  // stepsPerRev = 200;
-  // brushlessController = 0;
-  // StepperController = 0;
+  private async initialize() {
+    await new Promise((res, rej) => {
+      this.board.on("ready", () => {
+        res(null);
+      });
+    });
+    
+    this.stepperController = new StepperController();
+    await this.stepperController.init(this.board);
+    this.escController = new EscController();
+    await this.escController.init();
 
-  // constructor() {
-  //   this.board.on("ready", () => {
-
-  //     this.board.io.accelStepperConfig({
-  //       deviceNum: 0,
-  //       type: this.board.io.STEPPER.TYPE.DRIVER,
-  //       stepPin: 12,
-  //       directionPin: 11,
-  //       stepSize: this.board.io.STEPPER.STEP_SIZE.WHOLE,
-  //     });
-  //     this.board.io.accelStepperSpeed(0, 1200);
-  //     this.isReady = true;
-  //   });
-  // }
-
-  // async moveToPosition(movePos: { x: number; y: number }) {
-  //   if (!this.isReady) return;
-  //   this.board.io.accelStepperStop(0);
-  //   await delay(100);
-  //   this.board.io.accelStepperTo(0, movePos.x, () => {
-  //     console.log("done");
-  //   });
-  // }
-
-  // async resetPosition() {
-  //   if (!this.isReady) return;
-  //   this.board.io.accelStepperStop(0);
-  //   await delay(100);
-  //   this.board.io.accelStepperTo(0, 0, () => {
-  //     console.log("done");
-  //   });
-  // }
-}
-
-async function delay(miliseconds: number) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(null);
-    }, miliseconds);
-  });
+    this.isReady = true;
+  }
 }
