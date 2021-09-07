@@ -7,7 +7,6 @@ export default class BoardController {
   board = new Board();
   isReady = false;
   stepperController: StepperController;
-  // brushlessController: BrushlessController;
   escController: EscController;
 
   constructor() {

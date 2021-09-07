@@ -21,16 +21,17 @@ export default class StepperController {
       directionPin: 11,
       stepSize: board.io.STEPPER.STEP_SIZE.WHOLE,
     });
-    board.io.accelStepperSpeed(this.baseId, 1200);
+    console.log(board.io.STEPPER)
+    board.io.accelStepperSpeed(this.baseId, 300);
 
-    board.io.accelStepperConfig({
-      deviceNum: this.turretId,
-      type: board.io.STEPPER.TYPE.DRIVER,
-      stepPin: 7,
-      directionPin: 6,
-      stepSize: board.io.STEPPER.STEP_SIZE.WHOLE,
-    });
-    board.io.accelStepperSpeed(this.turretId, 1200);
+    // board.io.accelStepperConfig({
+    //   deviceNum: this.turretId,
+    //   type: board.io.STEPPER.TYPE.DRIVER,
+    //   stepPin: 7,
+    //   directionPin: 6,
+    //   stepSize: board.io.STEPPER.STEP_SIZE.WHOLE,
+    // });
+    // board.io.accelStepperSpeed(this.turretId, 1200);
   }
 
   setPosition(position: vector2) {
@@ -42,11 +43,11 @@ export default class StepperController {
         console.log("done");
       });
     }
-    if (position.y != null) {
-      this.board.io.accelStepperTo(this.turretId, position.y, () => {
-        console.log("done");
-      });
-    }
+    // if (position.y != null) {
+    //   this.board.io.accelStepperTo(this.turretId, position.y, () => {
+    //     console.log("done");
+    //   });
+    // }
   }
 
   async resetPosition() {

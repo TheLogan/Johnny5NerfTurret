@@ -9,6 +9,7 @@ app.use(bodyParser.json())
 
 
 app.get('/esc/spinup', function (req, res) {
+  board.escController.run();
   board.escController.spinUp();
   res.send();
 })
@@ -22,12 +23,17 @@ app.get('/feedammo', (req, res) => {
   res.send();
 })
 
-app.post('/stepper/setposition', function (req, res) {
+app.post('/stepper/setposition', (req, res) => {
   let movePos: vector2 = req.body;
   if (isNaN(movePos.x) || isNaN(movePos.y)) {
     return res.sendStatus(400);
   }
   board.stepperController.setPosition(movePos);
+  res.send();
+})
+
+app.get('/stepper/resetposition', (req, res) => {
+  board.stepperController.resetPosition();
   res.send();
 })
 
