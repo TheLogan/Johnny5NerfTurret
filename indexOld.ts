@@ -1,5 +1,5 @@
 import express from 'express'
-import BoardController from './BoardController'
+import BoardController from './ServoController'
 import bodyParser from 'body-parser'
 
 const app = express()
