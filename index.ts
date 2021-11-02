@@ -18,4 +18,9 @@ app.post('/move', function (req, res) {
   res.send();
 })
 
+app.get("/reset", (req,res) => {
+  board.resetPos();
+  res.send();
+})
+
 app.listen(3000)

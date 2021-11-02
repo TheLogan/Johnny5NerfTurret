@@ -1,5 +1,6 @@
 import { Board, ESC, Sensor, Servo } from "johnny-five";
 export default class boardController {
+  
   board: Board;
   servoX: Servo | null = null;
   servoY: Servo | null = null;
@@ -27,15 +28,22 @@ export default class boardController {
   
   moveToPosition(pos: { x: number, y: number }) {
     if (!this.boardReady || this.servoX == null || this.servoY == null) return;
-    if(this.servoX.position == -1) {
-      
-    }
+    let servoXPos = this.servoX.position;
+    let servoYPos = this.servoY.position;
+    
+    if(servoXPos == -1) servoXPos = 90
+    if(servoYPos == -1) servoYPos = 90
 
-    let servoXPos = [0, this.servoX.position + pos.x, 180].sort()[1];
-    let servoYPos = [0, this.servoY.position + pos.y, 180].sort()[1];
+    servoXPos = [0, servoXPos + pos.x, 180].sort((a,b) => a-b)[1];
+    servoYPos = [0, servoYPos + pos.y, 140].sort((a,b) => a-b)[1];
     console.log("x:", servoXPos, ", y:", servoYPos);
     
     this.servoX.to(servoXPos);
     this.servoY.to(servoYPos);
+  }
+
+  resetPos() {
+    this.servoX.to(90);
+    this.servoY.to(90);
   }
 }
