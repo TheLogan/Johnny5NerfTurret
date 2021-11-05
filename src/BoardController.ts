@@ -3,7 +3,9 @@ import PiezoController from "./components/PiezoController";
 import ServoController from "./components/ServoController";
 
 export default class BoardController {
-  board = new Board();
+  board = new Board({
+    port: "COM4"
+  });
   isReady = false;
   servoController: ServoController;
   // piezoController: PiezoController;
